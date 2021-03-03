@@ -8,4 +8,19 @@
     <string name="main_btn_4">Advanced Level</string>
     <string name="main_title">GUESS THE CAR</string>
     <string name="main_heading">Select A Level</string>
+    <string name="car_make_imageView">current car image</string>
+
+
+    <string-array name="car_make_spinner">
+        <item>BMW</item>
+        <item>FORD</item>
+        <item>HONDA</item>
+        <item>HYUNDAI</item>
+        <item>MERCEDES</item>
+        <item>NISSAN</item>
+        <item>SUZUKI</item>
+        <item>TESLA</item>
+        <item>TOYOTA</item>
+        <item>VOLKSWAGEN</item>
+    </string-array>
 </resources>
