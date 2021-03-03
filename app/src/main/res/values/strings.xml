@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">MAD-CourseWork1</string>
+    <string name="app_name">GUESS THE CAR</string>
+    <string name="intro_text">Can You Guess The Car?</string>
+    <string name="intro_img_text">Intro car image</string>
+    <string name="main_btn_1">Car Make</string>
+    <string name="main_btn_2">Hints</string>
+    <string name="main_btn_3">Identify Car Image</string>
+    <string name="main_btn_4">Advanced Level</string>
+    <string name="main_title">GUESS THE CAR</string>
+    <string name="main_heading">Select A Level</string>
 </resources>
