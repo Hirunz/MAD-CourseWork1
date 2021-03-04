@@ -10,6 +10,7 @@
         android:id="@+id/car_make_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/main_btn_1"
         android:textColor="@color/blue_700"
         android:textSize="30sp"
@@ -22,24 +23,85 @@
         android:id="@+id/car_make_imgView"
         android:layout_width="295dp"
         android:layout_height="282dp"
+        android:contentDescription="@string/car_make_imageView"
+        android:src="@drawable/bmw_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/car_make_title"
-        android:src="@drawable/bmw_1"
-        android:contentDescription="@string/car_make_imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/car_make_title" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/car_make_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@color/blue_200"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/car_make_heading1" />
+
+    <Button
+        android:id="@+id/car_make_btn_identify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:onClick="onIdentify"
+        android:text="@string/car_make_btn_identify"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/car_make_imgView"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/car_make_spinner" />
+
+    <TextView
+        android:id="@+id/car_make_heading1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/car_make_heading1"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/car_make_imgView" />
+
+    <TextView
+        android:id="@+id/car_make_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/car_make_btn_identify" />
+
+    <TextView
+        android:id="@+id/correct_answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/correct_answer_is"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.195"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/car_make_status"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/correct_answer"
+        app:layout_constraintStart_toEndOf="@+id/correct_answer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

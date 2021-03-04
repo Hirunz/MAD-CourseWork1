@@ -9,9 +9,16 @@
     <string name="main_title">GUESS THE CAR</string>
     <string name="main_heading">Select A Level</string>
     <string name="car_make_imageView">current car image</string>
+    <string name="car_make_btn_identify">Identify</string>
+    <string name="car_make_heading1">Please Select a Make</string>
+    <string name="correct">CORRECT!</string>
+    <string name="wrong">WRONG!</string>
+    <string name="correct_answer_is">Correct Answer is</string>
+    <string name="car_make_not_selected">Please Select a Make First !</string>
 
 
     <string-array name="car_make_spinner">
+        <item>-- SELECT A MAKE --</item>
         <item>BMW</item>
         <item>FORD</item>
         <item>HONDA</item>
