@@ -15,6 +15,10 @@
     <string name="wrong">WRONG!</string>
     <string name="correct_answer_is">Correct Answer is</string>
     <string name="car_make_not_selected">Please Select a Make First !</string>
+    <string name="hints_heading1">Complete the Car Make</string>
+    <string name="hints_hint" />
+    <string name="hints_btn_Submit">Submit</string>
+    <string name="hints_input">Enter a Character</string>
 
 
     <string-array name="car_make_spinner">
