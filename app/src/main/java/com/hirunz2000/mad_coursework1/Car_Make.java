@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,7 +31,11 @@ public class Car_Make extends AppCompatActivity implements AdapterView.OnItemSel
     private TextView status;
     private TextView answer;
     private TextView correctAnswer;
+    private TextView timerView;
 
+    private CountDownTimer timer;
+
+    private boolean answered;
 
     private int spinnerSelected=0;
 
@@ -39,16 +44,30 @@ public class Car_Make extends AppCompatActivity implements AdapterView.OnItemSel
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car__make);
 
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        if (bundle != null){
+            if (bundle.getBoolean(MainActivity.timerId)){
+                initialiseTimer();
+                timer.start();
+            }
+        }
+
         image=findViewById(R.id.car_make_imgView);
         spinner=findViewById(R.id.car_make_spinner);
         status = findViewById(R.id.car_make_status);
         answer=findViewById(R.id.answer);
         correctAnswer=findViewById(R.id.correct_answer);
+        timerView = findViewById(R.id.car_make_timer);
+        answered=false;
 
         randomImage();
         initialiseSpinner();
 
     }
+
 
     public void randomImage(){
 
@@ -75,6 +94,30 @@ public class Car_Make extends AppCompatActivity implements AdapterView.OnItemSel
         Log.d(LOG_TAG,"image id: "+resourceId);
 
         image.setImageResource(resourceId);
+    }
+
+    public void initialiseTimer(){
+        timer = new CountDownTimer(20000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timerView.setText(String.valueOf(millisUntilFinished/1000));
+            }
+
+            @Override
+            public void onFinish() {
+                if (!answered){
+                    Toast.makeText(getApplicationContext(), "Time's up !", Toast.LENGTH_SHORT).show();
+
+                    correctAnswer.setVisibility(View.VISIBLE);
+                    answer.setText(selectedMake.toUpperCase());
+                    answer.setTextColor(Color.YELLOW);
+
+                    onWrong();
+                    changeToNext();
+                }
+
+            }
+        };
     }
 
     public void initialiseSpinner(){
@@ -125,14 +168,18 @@ public class Car_Make extends AppCompatActivity implements AdapterView.OnItemSel
 
     private void onCorrect() {
         // setting the correct answer
+        spinner.setEnabled(false);
         status.setText(R.string.correct);
         status.setTextColor(Color.GREEN);
+        timer.cancel();
     }
 
     private void onWrong() {
         // setting the wrong answer
+        spinner.setEnabled(false);
         status.setText(R.string.wrong);
         status.setTextColor(Color.RED);
+        timer.cancel();
     }
 
     private void changeToNext() {

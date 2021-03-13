@@ -28,6 +28,7 @@
     <string name="advanced_image_description">A Car Image</string>
     <string name="advanced_submit">Submit</string>
     <string name="advanced_score">"Score: 0"</string>
+    <string name="timer">00</string>
 
 
     <string-array name="car_make_spinner">

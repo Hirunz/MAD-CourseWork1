@@ -1,10 +1,13 @@
 package com.hirunz2000.mad_coursework1;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -52,12 +55,20 @@ public class Advanced extends AppCompatActivity {
         answer3=findViewById(R.id.advanced_img_3_answer);
         score=findViewById(R.id.advanced_score);
 
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        if (bundle !=null) {
+            String str = bundle.getString("EXTRA_SCORE");
+            score.setText(str);
+        }
+
         user_input1 = findViewById(R.id.advanced_img_1_editText);
         user_input2 = findViewById(R.id.advanced_img_2_editText);
         user_input3 = findViewById(R.id.advanced_img_3_editText);
 
         status=findViewById(R.id.advanced_status);
-        
+
         imageMakes = new ArrayList<>();
         attemptsUsed=0;
 
@@ -160,7 +171,7 @@ public class Advanced extends AppCompatActivity {
     public void addPoint(){
         String str = score.getText().toString();
 
-        int currentScore = Integer.parseInt(String.valueOf(str.charAt(str.length()-1)));
+        int currentScore = Integer.parseInt(str.substring(7));
         currentScore++;
         score.setText("Score: "+currentScore);
     }
@@ -195,11 +206,21 @@ public class Advanced extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent=getIntent();
+                intent.putExtra("EXTRA_SCORE", score.getText());
                 finish();
                 startActivity(intent);
             }
         });
     }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+//        outState.put
+    }
 
+    @Override
+    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onRestoreInstanceState(savedInstanceState, persistentState);
+    }
 }
