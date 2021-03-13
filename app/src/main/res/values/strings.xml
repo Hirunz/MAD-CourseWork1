@@ -19,6 +19,10 @@
     <string name="hints_hint" />
     <string name="hints_btn_Submit">Submit</string>
     <string name="hints_input">Enter a Character</string>
+    <string name="identify_img_heading1">"Select "</string>
+    <string name="identify_img_description">Car Image</string>
+    <string name="identify_img_next">Next</string>
+    <string name="identify_img_noAttempts">No Attempts Left. Click Next !</string>
 
 
     <string-array name="car_make_spinner">

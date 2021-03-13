@@ -138,7 +138,7 @@ public class Hints extends AppCompatActivity {
         status.setText(R.string.correct);
         status.setTextColor(Color.GREEN);
         status.setVisibility(View.VISIBLE);
-        
+
         changeToNext();
     }
 
