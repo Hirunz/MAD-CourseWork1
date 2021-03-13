@@ -23,6 +23,11 @@
     <string name="identify_img_description">Car Image</string>
     <string name="identify_img_next">Next</string>
     <string name="identify_img_noAttempts">No Attempts Left. Click Next !</string>
+    <string name="advanced_editText_hint">Enter Correct Make</string>
+    <string name="advanced_heading1">Enter Correct Makes</string>
+    <string name="advanced_image_description">A Car Image</string>
+    <string name="advanced_submit">Submit</string>
+    <string name="advanced_score">"Score: 0"</string>
 
 
     <string-array name="car_make_spinner">

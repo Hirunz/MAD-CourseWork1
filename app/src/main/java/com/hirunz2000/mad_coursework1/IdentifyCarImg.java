@@ -22,7 +22,7 @@ public class IdentifyCarImg extends AppCompatActivity {
 
 
     public static final String[] makes=Car_Make.makes;
-    private  static int attempts;
+
 
     private ImageView selectedMake;
 
