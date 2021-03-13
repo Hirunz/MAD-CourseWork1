@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
@@ -32,12 +33,14 @@ public class Advanced extends AppCompatActivity {
     private TextView answer2;
     private TextView answer3;
     private TextView score;
+    private TextView timerView;
 
     private EditText user_input1;
     private EditText user_input2;
     private EditText user_input3;
 
     private ArrayList<String> imageMakes;
+    private CountDownTimer timer;
 
     private int attemptsUsed;
 
@@ -54,13 +57,21 @@ public class Advanced extends AppCompatActivity {
         answer2=findViewById(R.id.advanced_img_2_answer);
         answer3=findViewById(R.id.advanced_img_3_answer);
         score=findViewById(R.id.advanced_score);
+        timerView = findViewById(R.id.advanced_timer);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
         if (bundle !=null) {
             String str = bundle.getString("EXTRA_SCORE");
-            score.setText(str);
+            if (str != null){
+                score.setText(str);
+            }
+
+            if (bundle.getBoolean(MainActivity.timerId)){
+                initialiseTimer();
+                timer.start();
+            }
         }
 
         user_input1 = findViewById(R.id.advanced_img_1_editText);
@@ -123,6 +134,35 @@ public class Advanced extends AppCompatActivity {
 
     }
 
+    public void initialiseTimer(){
+        timer = new CountDownTimer(20000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timerView.setText(String.valueOf(millisUntilFinished/1000));
+            }
+
+            @Override
+            public void onFinish() {
+                Toast.makeText(getApplicationContext(), "Time's up !", Toast.LENGTH_SHORT).show();
+                if ( checkCorrect(user_input1, answer1, imageMakes.get(0)) &
+                        checkCorrect(user_input2, answer2, imageMakes.get(1)) &
+                        checkCorrect(user_input3, answer3, imageMakes.get(2))
+                ){
+                    onCorrect();
+                }
+                else{
+                    onWrong();
+
+                    setAnswerVisible(user_input1, answer1, 0);
+                    setAnswerVisible(user_input2, answer2, 1);
+                    setAnswerVisible(user_input3, answer3, 2);
+                    changeToNext();
+
+                }
+            }
+        };
+    }
+
     public void onSubmit(View view) {
 
             if ( checkCorrect(user_input1, answer1, imageMakes.get(0)) &
@@ -181,6 +221,9 @@ public class Advanced extends AppCompatActivity {
 
     public void onCorrect() {
         // setting the correct answer
+        if (timer != null){
+            timer.cancel();
+        }
         status.setText(R.string.correct);
         status.setTextColor(Color.GREEN);
         status.setVisibility(View.VISIBLE);
@@ -189,6 +232,10 @@ public class Advanced extends AppCompatActivity {
     }
 
     public void onWrong() {
+
+        if (timer != null){
+            timer.cancel();
+        }
 
         status.setText(R.string.wrong);
         status.setTextColor(Color.RED);
@@ -206,21 +253,15 @@ public class Advanced extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent=getIntent();
+                Bundle bundle = intent.getExtras();
+
                 intent.putExtra("EXTRA_SCORE", score.getText());
+                intent.putExtra(MainActivity.timerId, bundle.getBoolean(MainActivity.timerId) );
                 finish();
                 startActivity(intent);
             }
         });
     }
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-//        outState.put
-    }
 
-    @Override
-    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onRestoreInstanceState(savedInstanceState, persistentState);
-    }
 }

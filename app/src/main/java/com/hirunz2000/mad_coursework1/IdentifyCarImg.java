@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +34,9 @@ public class IdentifyCarImg extends AppCompatActivity {
     private TextView answer;
     private TextView heading;
 
+    private TextView timerView;
+    private CountDownTimer timer;
+
     private ArrayList<String> imageMakes;
 
     private boolean attemptUsed;
@@ -48,11 +52,21 @@ public class IdentifyCarImg extends AppCompatActivity {
         status=findViewById(R.id.identify_img_status);
         answer=findViewById(R.id.identify_img_correct_answer);
         heading=findViewById(R.id.identify_img_heading1);
+        timerView = findViewById(R.id.identify_img_timer);
 
         imageMakes = new ArrayList<>();
         attemptUsed=false;
 
         randomImage();
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null){
+            if (bundle.getBoolean(MainActivity.timerId)){
+                initialiseTimer();
+                timer.start();
+            }
+        }
     }
 
 
@@ -130,6 +144,21 @@ public class IdentifyCarImg extends AppCompatActivity {
 
     }
 
+    public void initialiseTimer(){
+        timer = new CountDownTimer(20000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timerView.setText(String.valueOf(millisUntilFinished/1000));
+            }
+
+            @Override
+            public void onFinish() {
+                Toast.makeText(getApplicationContext(), "Time's up !", Toast.LENGTH_SHORT).show();
+                onWrong(-1);
+            }
+        };
+    }
+
     public void onSelect(View view) {
 
         if (!attemptUsed) {
@@ -151,6 +180,9 @@ public class IdentifyCarImg extends AppCompatActivity {
 
     public void onCorrect() {
         // setting the correct answer
+        if (timer != null){
+            timer.cancel();
+        }
         status.setText(R.string.correct);
         status.setTextColor(Color.GREEN);
         status.setVisibility(View.VISIBLE);
@@ -164,6 +196,9 @@ public class IdentifyCarImg extends AppCompatActivity {
     }
 
     public void onWrong(int id) {
+        if (timer != null){
+            timer.cancel();
+        }
 
         status.setText(R.string.wrong);
         status.setTextColor(Color.RED);
@@ -171,14 +206,17 @@ public class IdentifyCarImg extends AppCompatActivity {
 
         selectedMake.setBackgroundColor(Color.YELLOW);
 
-        if (id == image1.getId()){
-            image1.setBackgroundColor(Color.RED);
-        }
-        else if (id == image2.getId()){
-            image2.setBackgroundColor(Color.RED);
-        }
-        else{
-            image3.setBackgroundColor(Color.RED);
+        if (id != -1){
+            if (id == image1.getId()){
+                image1.setBackgroundColor(Color.RED);
+            }
+            else if (id == image2.getId()){
+                image2.setBackgroundColor(Color.RED);
+            }
+
+            else{
+                image3.setBackgroundColor(Color.RED);
+            }
         }
 
         changeToNext();

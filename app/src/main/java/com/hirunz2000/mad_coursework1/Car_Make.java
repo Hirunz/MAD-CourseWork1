@@ -35,7 +35,6 @@ public class Car_Make extends AppCompatActivity implements AdapterView.OnItemSel
 
     private CountDownTimer timer;
 
-    private boolean answered;
 
     private int spinnerSelected=0;
 
@@ -61,7 +60,7 @@ public class Car_Make extends AppCompatActivity implements AdapterView.OnItemSel
         answer=findViewById(R.id.answer);
         correctAnswer=findViewById(R.id.correct_answer);
         timerView = findViewById(R.id.car_make_timer);
-        answered=false;
+
 
         randomImage();
         initialiseSpinner();
@@ -105,7 +104,7 @@ public class Car_Make extends AppCompatActivity implements AdapterView.OnItemSel
 
             @Override
             public void onFinish() {
-                if (!answered){
+
                     Toast.makeText(getApplicationContext(), "Time's up !", Toast.LENGTH_SHORT).show();
 
                     correctAnswer.setVisibility(View.VISIBLE);
@@ -114,7 +113,6 @@ public class Car_Make extends AppCompatActivity implements AdapterView.OnItemSel
 
                     onWrong();
                     changeToNext();
-                }
 
             }
         };
@@ -162,24 +160,30 @@ public class Car_Make extends AppCompatActivity implements AdapterView.OnItemSel
         }
         else {
             // not selected message.
-            Toast.makeText(getApplicationContext(), R.string.car_make_not_selected,Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.car_make_not_selected,Toast.LENGTH_SHORT).show();
         }
     }
 
     private void onCorrect() {
         // setting the correct answer
+        if (timer != null){
+            timer.cancel();
+        }
         spinner.setEnabled(false);
         status.setText(R.string.correct);
         status.setTextColor(Color.GREEN);
-        timer.cancel();
+
     }
 
     private void onWrong() {
         // setting the wrong answer
+        if (timer != null){
+            timer.cancel();
+        }
         spinner.setEnabled(false);
         status.setText(R.string.wrong);
         status.setTextColor(Color.RED);
-        timer.cancel();
+
     }
 
     private void changeToNext() {
@@ -196,6 +200,8 @@ public class Car_Make extends AppCompatActivity implements AdapterView.OnItemSel
             }
         });
     }
+
+
 
 
 }

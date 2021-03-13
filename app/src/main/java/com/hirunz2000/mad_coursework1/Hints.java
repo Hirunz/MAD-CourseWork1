@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,7 +31,10 @@ public class Hints extends AppCompatActivity {
     private ImageView image;
     private TextView status;
     private TextView answer;
+    private TextView timerView;
     private EditText inputText;
+
+    private CountDownTimer timer;
 
 
     @Override
@@ -42,7 +46,17 @@ public class Hints extends AppCompatActivity {
         status=findViewById(R.id.hints_status);
         answer=findViewById(R.id.hints_answer);
         inputText=findViewById(R.id.hints_input_text);
+        timerView=findViewById(R.id.hints_timer);
         attempts=0;
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null){
+            if (bundle.getBoolean(MainActivity.timerId)){
+                initialiseTimer();
+                timer.start();
+            }
+        }
 
         randomImage();
 
@@ -80,6 +94,21 @@ public class Hints extends AppCompatActivity {
             txt+="_ ";
         }
         answer.setText(txt);
+    }
+
+    public void initialiseTimer(){
+        timer = new CountDownTimer(20000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timerView.setText(String.valueOf(millisUntilFinished/1000));
+            }
+
+            @Override
+            public void onFinish() {
+                    Toast.makeText(getApplicationContext(), "Time's up !", Toast.LENGTH_SHORT).show();
+                    onWrong();
+            }
+        };
     }
 
     public void onSubmit(View view) {
@@ -135,6 +164,10 @@ public class Hints extends AppCompatActivity {
 
     private void onCorrect() {
         // setting the correct answer
+        if (timer != null){
+            timer.cancel();
+        }
+
         status.setText(R.string.correct);
         status.setTextColor(Color.GREEN);
         status.setVisibility(View.VISIBLE);
@@ -144,6 +177,10 @@ public class Hints extends AppCompatActivity {
 
     private void onWrong() {
         // setting the wrong answer
+        if (timer != null){
+            timer.cancel();
+        }
+
         answer.setText(selectedMake.toUpperCase());
         answer.setTextColor(Color.YELLOW);
 

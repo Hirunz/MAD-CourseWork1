@@ -46,7 +46,7 @@
             <ImageView
                 android:id="@+id/identify_img_1"
                 android:layout_width="260dp"
-                android:layout_height="160dp"
+                android:layout_height="120dp"
                 android:contentDescription="@string/identify_img_description"
                 android:onClick="onSelect"
                 android:tag="0"
@@ -58,7 +58,7 @@
             <ImageView
                 android:id="@+id/identify_img_2"
                 android:layout_width="260dp"
-                android:layout_height="160dp"
+                android:layout_height="120dp"
                 android:layout_marginTop="8dp"
                 android:contentDescription="@string/identify_img_description"
                 android:onClick="onSelect"
@@ -71,7 +71,7 @@
             <ImageView
                 android:id="@+id/identify_img_3"
                 android:layout_width="260dp"
-                android:layout_height="160dp"
+                android:layout_height="120dp"
                 android:layout_marginTop="8dp"
                 android:contentDescription="@string/identify_img_description"
                 android:onClick="onSelect"
@@ -114,6 +114,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/identify_img_correct_answer"
                 android:onClick="onNext"/>
+
+            <TextView
+                android:id="@+id/identify_img_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/timer"
+                android:textSize="60sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/identify_next" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
