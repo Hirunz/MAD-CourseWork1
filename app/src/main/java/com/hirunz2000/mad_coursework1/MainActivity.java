@@ -3,6 +3,7 @@ package com.hirunz2000.mad_coursework1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Switch;
@@ -17,8 +18,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         timer= findViewById(R.id.main_timer_switch);
+
+        // hide the action bar toolbar in main menu.
+        getSupportActionBar().hide();
     }
 
+    // set buttons to start next activity.
     public void onButton1(View view) {
         Intent intent=new Intent(this,Car_Make.class);
         intent.putExtra(timerId,timer.isChecked());
@@ -42,4 +47,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(timerId,timer.isChecked());
         startActivity(intent);
     }
+
+
 }

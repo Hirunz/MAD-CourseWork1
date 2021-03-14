@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="blue_200">#82B7DC</color>
-    <color name="blue_500">#3466AA</color>
-    <color name="blue_700">#114084</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="ash_700">#808080</color>
+    <color name="heading1">#ac3b61</color>
+    <color name="heading2">#730033</color>
+    <color name="heading3">#123c69</color>
+    <color name="teal_200">#123c69</color>
+    <color name="background_1">#eee2dc</color>
     <color name="black">#1C1C1C</color>
+    <color name="heading4">#2c3531</color>
     <color name="white">#F1F1F1</color>
+    <color name="red">#f85c4d</color>
+    <color name="green">#4ded30</color>
+    <color name="yellow">#fdfa72</color>
+    <color name="background_main">#edc7b7</color>
 </resources>

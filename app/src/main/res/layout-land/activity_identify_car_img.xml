@@ -11,7 +11,7 @@
         android:id="@+id/identify_img_heading1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-medium"
         android:text="@string/identify_img_heading1"
         android:textColor="@color/heading4"
@@ -35,45 +35,51 @@
 
             <ImageView
                 android:id="@+id/identify_img_1"
-                android:layout_width="260dp"
-                android:layout_height="120dp"
+                android:layout_width="220dp"
+                android:layout_height="180dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
                 android:background="@drawable/border_radius"
                 android:contentDescription="@string/identify_img_description"
                 android:onClick="onSelect"
                 android:tag="0"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/identify_img_2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/background_1" />
 
             <ImageView
                 android:id="@+id/identify_img_2"
-                android:layout_width="260dp"
-                android:layout_height="120dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="220dp"
+                android:layout_height="180dp"
+                android:background="@drawable/border_radius"
                 android:contentDescription="@string/identify_img_description"
                 android:onClick="onSelect"
                 android:tag="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/identify_img_1"
-                app:srcCompat="@drawable/background_1"
-                android:background="@drawable/border_radius"/>
+                app:layout_constraintTop_toTopOf="@+id/identify_img_1"
+                app:srcCompat="@drawable/background_1" />
 
             <ImageView
                 android:id="@+id/identify_img_3"
-                android:layout_width="260dp"
-                android:layout_height="120dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="220dp"
+                android:layout_height="180dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/border_radius"
                 android:contentDescription="@string/identify_img_description"
                 android:onClick="onSelect"
                 android:tag="2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/identify_img_2"
-                app:srcCompat="@drawable/background_1"
-                android:background="@drawable/border_radius"/>
+                app:layout_constraintStart_toEndOf="@+id/identify_img_2"
+                app:layout_constraintTop_toTopOf="@+id/identify_img_2"
+                app:srcCompat="@drawable/background_1" />
 
             <TextView
                 android:id="@+id/identify_img_status"
@@ -91,24 +97,27 @@
                 android:id="@+id/identify_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
                 android:onClick="onNext"
                 android:text="@string/identify_img_next"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/identify_img_3"
+                app:layout_constraintStart_toStartOf="@+id/identify_img_2"
                 app:layout_constraintTop_toBottomOf="@+id/identify_img_status" />
 
             <TextView
                 android:id="@+id/identify_img_timer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginRight="32dp"
                 android:text="@string/timer"
                 android:textSize="60sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/identify_next"
-                android:visibility="invisible"/>
+                android:visibility="invisible"
+                app:layout_constraintBaseline_toBaselineOf="@+id/identify_next"
+                app:layout_constraintEnd_toStartOf="@+id/identify_next"
+                app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

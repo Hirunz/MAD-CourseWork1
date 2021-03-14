@@ -1,5 +1,6 @@
 package com.hirunz2000.mad_coursework1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,6 +25,7 @@ public class Car_Make extends AppCompatActivity implements AdapterView.OnItemSel
     public static final String LOG_TAG = Car_Make.class.getSimpleName();
 
     private String selectedMake;
+    // array of different makes
     public static final String[] makes={"bmw", "ford", "honda", "hyundai", "mercedes",
                                         "nissan", "suzuki", "tesla", "toyota", "volkswagen"};
 
@@ -35,6 +38,10 @@ public class Car_Make extends AppCompatActivity implements AdapterView.OnItemSel
 
     private CountDownTimer timer;
 
+    private int imageId;
+    private int identified;
+    private int remainingTime;
+
 
     private int spinnerSelected=0;
 
@@ -43,16 +50,9 @@ public class Car_Make extends AppCompatActivity implements AdapterView.OnItemSel
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car__make);
 
-
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-
-        if (bundle != null){
-            if (bundle.getBoolean(MainActivity.timerId)){
-                initialiseTimer();
-                timer.start();
-            }
-        }
+        // change action toolbar
+       getSupportActionBar().setTitle(R.string.main_btn_1);
+       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         image=findViewById(R.id.car_make_imgView);
         spinner=findViewById(R.id.car_make_spinner);
@@ -61,9 +61,31 @@ public class Car_Make extends AppCompatActivity implements AdapterView.OnItemSel
         correctAnswer=findViewById(R.id.correct_answer);
         timerView = findViewById(R.id.car_make_timer);
 
+        remainingTime =20000;
 
-        randomImage();
+        // only when restarting the app and avoid resetting when configuration changes.
+        if (savedInstanceState == null){
+            randomImage();
+            identified =-1;
+
+        }
         initialiseSpinner();
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        // set the timer if enabled in the main activity.
+        if (bundle != null){
+            if (bundle.getBoolean(MainActivity.timerId)){
+                timerView.setVisibility(View.VISIBLE);
+                initialiseTimer();
+                timer.start();
+            }
+        }
+
+
+
+
 
     }
 
@@ -92,14 +114,16 @@ public class Car_Make extends AppCompatActivity implements AdapterView.OnItemSel
         int resourceId = getResources().getIdentifier(imageName,"drawable","com.hirunz2000.mad_coursework1");
         Log.d(LOG_TAG,"image id: "+resourceId);
 
+        imageId=resourceId;
         image.setImageResource(resourceId);
     }
 
     public void initialiseTimer(){
-        timer = new CountDownTimer(20000,1000) {
+        timer = new CountDownTimer(remainingTime,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                timerView.setText(String.valueOf(millisUntilFinished/1000));
+                remainingTime = (int) millisUntilFinished/1000;
+                timerView.setText(String.valueOf(remainingTime));
             }
 
             @Override
@@ -143,16 +167,13 @@ public class Car_Make extends AppCompatActivity implements AdapterView.OnItemSel
         //  it means user has not selected a make.
         if (spinnerSelected > 0 && spinnerSelected<makes.length){
 
-            // set the current answer visible.
-            correctAnswer.setVisibility(View.VISIBLE);
-            answer.setText(selectedMake.toUpperCase());
-            answer.setTextColor(Color.YELLOW);
-
             // since makes array indexes start from zero, have to reduce 1 from the spinnerSelected.
             if (selectedMake.equals(makes[spinnerSelected-1])){
+                identified=1;
                 onCorrect();
             }
             else{
+                identified=0;
                 onWrong();
             }
 
@@ -165,6 +186,8 @@ public class Car_Make extends AppCompatActivity implements AdapterView.OnItemSel
     }
 
     private void onCorrect() {
+
+
         // setting the correct answer
         if (timer != null){
             timer.cancel();
@@ -176,6 +199,10 @@ public class Car_Make extends AppCompatActivity implements AdapterView.OnItemSel
     }
 
     private void onWrong() {
+        correctAnswer.setVisibility(View.VISIBLE);
+        answer.setText(selectedMake.toUpperCase());
+        answer.setTextColor(Color.YELLOW);
+
         // setting the wrong answer
         if (timer != null){
             timer.cancel();
@@ -197,11 +224,53 @@ public class Car_Make extends AppCompatActivity implements AdapterView.OnItemSel
                 Intent intent=getIntent();
                 finish();
                 startActivity(intent);
+                // set custom animation for activity transition.
+                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_lleft);
             }
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // navigation back button in action bar.
+        if (item.getItemId()==android.R.id.home) {
+            this.finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
+    // storing and restoring data when config changes (orientation) using bundles.
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("IMAGE",imageId);
+//        Log.d(LOG_TAG, String.valueOf(imageId));
+        outState.putString("SELECTED", selectedMake);
+        outState.putInt("IDENTIFIED",identified);
+//        outState.putInt("TIME", remainingTime);
+    }
 
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        imageId = savedInstanceState.getInt("IMAGE");
+        image.setImageResource(imageId);
+//        Log.d(LOG_TAG,"Selected make: "+selectedMake);
 
+        selectedMake = savedInstanceState.getString("SELECTED");
+//        Log.d(LOG_TAG,"Selected make: "+selectedMake);
+
+        // check whether user has answered or not.
+        identified = savedInstanceState.getInt("IDENTIFIED");
+        if (identified==0){
+            onWrong();
+            changeToNext();
+        }
+        if (identified==1){
+            onCorrect();
+            changeToNext();
+        }
+//        remainingTime = savedInstanceState.getInt("TIME");
+    }
 }

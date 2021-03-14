@@ -25,11 +25,12 @@
                 android:id="@+id/hints_imgView"
                 android:layout_width="295dp"
                 android:layout_height="282dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/border_radius"
                 android:contentDescription="@string/car_make_imageView"
                 android:src="@drawable/bmw_1"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,15 +38,14 @@
                 android:id="@+id/hints_heading1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/hints_heading1"
                 android:textColor="@color/heading4"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/hints_imgView" />
+                app:layout_constraintStart_toEndOf="@+id/hints_imgView"
+                app:layout_constraintTop_toTopOf="@+id/hints_imgView" />
 
             <TextView
                 android:id="@+id/hints_answer"
@@ -57,13 +57,14 @@
                 android:textSize="36sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/hints_imgView"
                 app:layout_constraintTop_toBottomOf="@+id/hints_heading1" />
 
             <Button
                 android:id="@+id/hints_submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="40dp"
                 android:layout_marginRight="40dp"
                 android:onClick="onSubmit"
@@ -75,8 +76,8 @@
                 android:id="@+id/hints_input_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginLeft="40dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:ems="10"
@@ -85,7 +86,7 @@
                 android:maxLength="1"
                 app:layout_constraintBaseline_toBaselineOf="@+id/hints_submit"
                 app:layout_constraintEnd_toStartOf="@+id/hints_submit"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/hints_imgView" />
 
             <TextView
                 android:id="@+id/hints_status"
@@ -95,20 +96,20 @@
                 android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/hints_imgView"
                 app:layout_constraintTop_toBottomOf="@+id/hints_input_text" />
 
             <TextView
                 android:id="@+id/hints_timer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/timer"
                 android:textSize="60sp"
                 android:textStyle="bold"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/hints_imgView"
                 app:layout_constraintTop_toBottomOf="@+id/hints_status" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

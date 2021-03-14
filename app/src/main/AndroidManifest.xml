@@ -10,15 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MADCourseWork1">
         <activity android:name=".Hints"
-            android:configChanges="orientation|screenSize"/>
+            />
         <activity android:name=".Advanced"
-            android:configChanges="orientation|screenSize"/>
+            />
         <activity android:name=".IdentifyCarImg"
-            android:configChanges="orientation|screenSize"/>
+            />
         <activity android:name=".Car_Make"
-            android:configChanges="orientation|screenSize"/>
+            />
         <activity android:name=".MainActivity"
-            android:configChanges="orientation|screenSize">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
